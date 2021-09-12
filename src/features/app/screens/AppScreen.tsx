@@ -1,104 +1,58 @@
-import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import React, {useState} from 'react';
+import {SafeAreaView, StatusBar, StyleSheet, View} from 'react-native';
 
+import NewFeed from '../components/NewFeed';
+import TopSection from '../components/TopSection';
 import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const Section: React.FC<{
-  title: string;
-}> = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+  HomeLabels,
+  SampleNewsList,
+  SectionList,
+  InitNewsFeedFilter,
+  LocationList,
+  KeywordList,
+} from '../constants/AppConstant';
+import {NewFeedFilterType} from '../models/Home';
+import NewsFeedFilter from '../components/NewsFeedFilter';
 
 const AppScreen = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const [filters, setFilters] = useState<NewFeedFilterType>(InitNewsFeedFilter);
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+    <SafeAreaView style={styles.safeContainer}>
+      <StatusBar barStyle="dark-content" />
+      <View style={styles.mainContainer}>
+        <TopSection
+          title={HomeLabels.SECTION_TITLE}
+          onChangeSection={id => console.log('section id >>>>>>>>>>', id)}
+          selectedSectionId={'world'}
+          sectionList={SectionList}
+        />
+        <NewsFeedFilter
+          locationList={LocationList}
+          keywordList={KeywordList}
+          onChangeFilter={(id: string, value: NewFeedFilterType) =>
+            console.log('selected Filter -->', id, '--', value)
+          }
+          selectedFilters={filters}
+        />
+        <View style={styles.mainFeedContainer}>
+          <NewFeed selectedFilters={filters} newsList={SampleNewsList} />
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  safeContainer: {
+    flex: 1,
+    backgroundColor: '#FFF',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  mainContainer: {
+    flex: 1,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  mainFeedContainer: {
+    flex: 1,
   },
 });
 

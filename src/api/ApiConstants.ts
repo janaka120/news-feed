@@ -11,7 +11,7 @@ export const ApiEndPoint = {
 export const ApiMethod: ApiMethodModel = {
   GET: 'get',
   POST: 'post',
-  UPDATE: 'update',
+  PUT: 'put',
   DELETE: 'delete',
 };
 

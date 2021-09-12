@@ -47,3 +47,7 @@ export interface ApiRequestType {
   params?: any;
   data?: any;
 }
+export interface NameValuePairType<T> {
+  label: string;
+  value: T;
+}
