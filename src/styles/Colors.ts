@@ -15,6 +15,7 @@ export const GRAY_756 = '#565756';
 export const GRAY_E92 = '#808E92';
 export const GRAY_276 = '#667276';
 export const GRAY_1A6 = '#93A1A6';
+export const GRAY_E9E = '#a39e9e';
 // green
 export const GREEN_53A = '#41453A';
 // purple
@@ -30,3 +31,5 @@ export const BLACK_0_6 = 'rgba(0, 0, 0, 0.4)';
 export const GRAY_190_1 = 'rgba(190, 190, 190,.1)';
 export const GRAY_190_8 = 'rgba(190, 190, 190,.8)';
 export const GRAY_255_1 = 'rgba(0, 0, 0,  0.3)';
+export const Blue_D0E3_5 = 'rgba(117, 208, 227, 0.7)';
+export const Blue_D0E3_3 = 'rgba(117, 208, 227, 0.3)';

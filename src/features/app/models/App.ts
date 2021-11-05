@@ -51,3 +51,26 @@ export interface NameValuePairType<T> {
   label: string;
   value: T;
 }
+
+export interface CarouselItem {
+  id: number;
+  title: string;
+  images: Array<string>;
+  description: string;
+}
+
+export type CarouselModel = Array<CarouselItem>;
+
+export interface ApiResponse<T> {
+  success: boolean;
+  data?: T;
+  msg?: string;
+  extra?: any;
+}
+
+export type CarouselPayloadResponse = ApiResponse<CarouselModel>;
+
+export interface GetCarouselListParams {
+  pageCount: number;
+  perPageSize: number;
+}

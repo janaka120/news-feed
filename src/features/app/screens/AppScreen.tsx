@@ -1,43 +1,38 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import {SafeAreaView, StatusBar, StyleSheet, View} from 'react-native';
+import {shallowEqual, useDispatch, useSelector} from 'react-redux';
 
-import NewFeed from '../components/NewFeed';
-import TopSection from '../components/TopSection';
-import {
-  HomeLabels,
-  SampleNewsList,
-  SectionList,
-  InitNewsFeedFilter,
-  LocationList,
-  KeywordList,
-} from '../constants/AppConstant';
-import {NewFeedFilterType} from '../models/Home';
-import NewsFeedFilter from '../components/NewsFeedFilter';
+import {RootState} from '../../../reducers/RootReducer';
+import {fetchCarouselList} from '../actions/AppActions';
+
+import {WHITE_FFF} from '../../../styles/Colors';
+import Carousel from '../components/Carousel';
+import FullLoader from '../components/FullLoader';
+import {PAGE_COUNT, PAGE_SIZE} from '../constants/AppConstant';
 
 const AppScreen = () => {
-  const [filters, setFilters] = useState<NewFeedFilterType>(InitNewsFeedFilter);
+  const {carouselList, isInProgress} = useSelector((state: RootState) => {
+    return {
+      carouselList: state.app.carouselList,
+      isInProgress: state.app.isInProgress,
+    };
+  }, shallowEqual);
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const param = {
+      pageCount: PAGE_COUNT,
+      perPageSize: PAGE_SIZE,
+    };
+    dispatch(fetchCarouselList(param));
+  }, []);
   return (
     <SafeAreaView style={styles.safeContainer}>
       <StatusBar barStyle="dark-content" />
       <View style={styles.mainContainer}>
-        <TopSection
-          title={HomeLabels.SECTION_TITLE}
-          onChangeSection={id => console.log('section id >>>>>>>>>>', id)}
-          selectedSectionId={'world'}
-          sectionList={SectionList}
-        />
-        <NewsFeedFilter
-          locationList={LocationList}
-          keywordList={KeywordList}
-          onChangeFilter={(id: string, value: NewFeedFilterType) =>
-            console.log('selected Filter -->', id, '--', value)
-          }
-          selectedFilters={filters}
-        />
-        <View style={styles.mainFeedContainer}>
-          <NewFeed selectedFilters={filters} newsList={SampleNewsList} />
-        </View>
+        <Carousel list={carouselList} />
+        {isInProgress && <FullLoader />}
       </View>
     </SafeAreaView>
   );
@@ -46,14 +41,12 @@ const AppScreen = () => {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: WHITE_FFF,
   },
   mainContainer: {
     flex: 1,
   },
-  mainFeedContainer: {
-    flex: 1,
-  },
+  mainFeedContainer: {},
 });
 
 export default AppScreen;

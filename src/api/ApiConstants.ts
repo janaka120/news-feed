@@ -5,17 +5,17 @@ import {
 } from '../features/app/models/App';
 
 export const ApiEndPoint = {
-  BASE_URL: '',
+  BASE_URL: 'https://pixabay.com/api/',
 };
 
 export const ApiMethod: ApiMethodModel = {
   GET: 'get',
   POST: 'post',
-  PUT: 'put',
+  UPDATE: 'put',
   DELETE: 'delete',
 };
 
-export const ApiKey: string = '';
+export const ApiKey: string = '24159451-79d7f87686c87f5a8a858a8b3';
 
 export const ApiStatus: ApiStatusModel = {
   OK: 'ok',

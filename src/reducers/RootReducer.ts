@@ -1,4 +1,4 @@
-import {configureStore} from '@reduxjs/toolkit';
+import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit';
 import appReducer from '../features/app/reducers/AppReducer';
 
 export const store = configureStore({
@@ -11,8 +11,4 @@ export const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
-
-// -------- usage ---------------
-// import type { RootState } from '../../app/store'
-// Other code such as selectors can use the imported `RootState` type
-// export const selectCount = (state: RootState) => state.counter.value
+export type AppThunk = ThunkAction<void, RootState, unknown, Action<string>>;
